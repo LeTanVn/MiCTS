@@ -227,14 +227,14 @@ fun SettingsPage(
             title = stringResource(R.string.default_trigger_delay),
             value = (appConfig[AppConfig.KEY_DEFAULT_DELAY] as Long).toFloat(),
             onValueChange = { viewModel.updateAppConfig(AppConfig.KEY_DEFAULT_DELAY, it.toLong())},
-            valueRange = 0f..2000f
+            valueRange = 0f..200f
         )
 
         SliderSettingItem(
             title = stringResource(R.string.tile_trigger_delay),
             value = (appConfig[AppConfig.KEY_TILE_DELAY] as Long).toFloat(),
             onValueChange = { viewModel.updateAppConfig(AppConfig.KEY_TILE_DELAY, it.toLong())},
-            valueRange = 0f..2000f
+            valueRange = 0f..200f
         )
 
         ListItem(
