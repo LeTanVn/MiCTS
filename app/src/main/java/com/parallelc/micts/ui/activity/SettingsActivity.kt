@@ -414,7 +414,7 @@ fun SliderSettingItem(
             value = value,
             onValueChange = onValueChange,
             valueRange = valueRange,
-            steps = 1999
+            steps = 199
         )
     }
 }
