@@ -32,6 +32,11 @@ jobs:
             echo androidKeyPassword='${{ secrets.KEY_PASSWORD }}' >> gradle.properties
             echo androidStoreFile='key.jks' >> gradle.properties
             echo ${{ secrets.KEY_STORE }} | base64 --decode > key.jks
+          elif [ -f "app/key.jks" ]; then
+            echo androidStorePassword='android' >> gradle.properties
+            echo androidKeyAlias='my-alias' >> gradle.properties
+            echo androidKeyPassword='android' >> gradle.properties
+            echo androidStoreFile='app/key.jks' >> gradle.properties
           fi
 
       - name: Setup Java

@@ -21,7 +21,7 @@ import android.view.WindowManager
 import androidx.core.app.NotificationCompat
 import com.parallelc.micts.R
 import com.parallelc.micts.config.AppConfig
-import com.parallelc.micts.ui.activity.MainActivity
+import com.parallelc.micts.ui.activity.triggerCircleToSearch
 
 class OverlayService : Service() {
 
@@ -146,9 +146,9 @@ class OverlayService : Service() {
     }
 
     private fun triggerCTS() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-        startActivity(intent)
+        val prefs = getSharedPreferences(AppConfig.CONFIG_NAME, Context.MODE_PRIVATE)
+        val vibrate = prefs.getBoolean(AppConfig.KEY_VIBRATE, false)
+        triggerCircleToSearch(1, this, vibrate)
     }
 
     private fun removeOverlays() {
