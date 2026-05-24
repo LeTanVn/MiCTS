@@ -25,6 +25,13 @@ object AppConfig {
     const val KEY_TILE_DELAY = "tile_delay"
     const val KEY_VIBRATE = "vibrate"
     const val KEY_ASYNC_TRIGGER = "async_trigger"
+    
+    // Overlay settings
+    const val KEY_OVERLAY_ENABLED = "overlay_enabled"
+    const val KEY_OVERLAY_CORNERS = "overlay_corners" // 0 = Left, 1 = Right, 2 = Both
+    const val KEY_OVERLAY_WIDTH = "overlay_width"
+    const val KEY_OVERLAY_HEIGHT = "overlay_height"
+    const val KEY_OVERLAY_OPACITY = "overlay_opacity"
 
     val DEFAULT_CONFIG = mapOf<String, Any>(
         KEY_LANGUAGE to Language.FollowSystem.ordinal,
@@ -32,5 +39,10 @@ object AppConfig {
         KEY_TILE_DELAY to 400L,
         KEY_VIBRATE to false,
         KEY_ASYNC_TRIGGER to false,
+        KEY_OVERLAY_ENABLED to false,
+        KEY_OVERLAY_CORNERS to 2, // Default to Both
+        KEY_OVERLAY_WIDTH to 50,
+        KEY_OVERLAY_HEIGHT to 50,
+        KEY_OVERLAY_OPACITY to 50,
     )
 }

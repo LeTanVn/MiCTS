@@ -2,8 +2,10 @@ package com.parallelc.micts.ui.activity
 
 import android.content.Intent
 import android.content.res.Configuration
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -227,14 +229,16 @@ fun SettingsPage(
             title = stringResource(R.string.default_trigger_delay),
             value = (appConfig[AppConfig.KEY_DEFAULT_DELAY] as Long).toFloat(),
             onValueChange = { viewModel.updateAppConfig(AppConfig.KEY_DEFAULT_DELAY, it.toLong())},
-            valueRange = 0f..200f
+            valueRange = 0f..200f,
+            suffix = "ms"
         )
 
         SliderSettingItem(
             title = stringResource(R.string.tile_trigger_delay),
             value = (appConfig[AppConfig.KEY_TILE_DELAY] as Long).toFloat(),
             onValueChange = { viewModel.updateAppConfig(AppConfig.KEY_TILE_DELAY, it.toLong())},
-            valueRange = 0f..200f
+            valueRange = 0f..200f,
+            suffix = "ms"
         )
 
         ListItem(
@@ -261,6 +265,93 @@ fun SettingsPage(
                 )
             }
         )
+
+        ListItem(
+            headlineContent = {
+                Text(
+                    text = stringResource(R.string.overlay_settings),
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = MaterialTheme.colorScheme.primary
+                )
+            }
+        )
+
+        val context = LocalContext.current
+        ListItem(
+            headlineContent = { Text(stringResource(R.string.overlay_enabled)) },
+            trailingContent = {
+                Switch(
+                    checked = appConfig[AppConfig.KEY_OVERLAY_ENABLED] as Boolean,
+                    onCheckedChange = {
+                        if (it && !Settings.canDrawOverlays(context)) {
+                            android.widget.Toast.makeText(context, R.string.need_overlay_permission, android.widget.Toast.LENGTH_LONG).show()
+                            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:${context.packageName}"))
+                            context.startActivity(intent)
+                        } else {
+                            viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_ENABLED, it)
+                        }
+                    }
+                )
+            }
+        )
+
+        if (appConfig[AppConfig.KEY_OVERLAY_ENABLED] as Boolean) {
+            ListItem(
+                headlineContent = { Text(stringResource(R.string.overlay_corners)) },
+                trailingContent = {
+                    Box {
+                        var cornersExpanded by remember { mutableStateOf(false) }
+                        val options = listOf(
+                            stringResource(R.string.overlay_corners_left),
+                            stringResource(R.string.overlay_corners_right),
+                            stringResource(R.string.overlay_corners_both)
+                        )
+                        val selectedIndex = appConfig[AppConfig.KEY_OVERLAY_CORNERS] as Int
+                        val selectedOption = options[selectedIndex]
+
+                        TextButton(onClick = { cornersExpanded = true }) {
+                            Text(text = selectedOption)
+                        }
+
+                        DropdownMenu(
+                            expanded = cornersExpanded,
+                            onDismissRequest = { cornersExpanded = false }
+                        ) {
+                            options.forEachIndexed { index, option ->
+                                DropdownMenuItem(
+                                    text = { Text(option) },
+                                    onClick = {
+                                        cornersExpanded = false
+                                        viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_CORNERS, index)
+                                    }
+                                )
+                            }
+                        }
+                    }
+                }
+            )
+
+            SliderSettingItem(
+                title = stringResource(R.string.overlay_width),
+                value = (appConfig[AppConfig.KEY_OVERLAY_WIDTH] as Int).toFloat(),
+                onValueChange = { viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_WIDTH, it.toInt()) },
+                valueRange = 10f..200f
+            )
+
+            SliderSettingItem(
+                title = stringResource(R.string.overlay_height),
+                value = (appConfig[AppConfig.KEY_OVERLAY_HEIGHT] as Int).toFloat(),
+                onValueChange = { viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_HEIGHT, it.toInt()) },
+                valueRange = 10f..200f
+            )
+
+            SliderSettingItem(
+                title = stringResource(R.string.overlay_opacity),
+                value = (appConfig[AppConfig.KEY_OVERLAY_OPACITY] as Int).toFloat(),
+                onValueChange = { viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_OPACITY, it.toInt()) },
+                valueRange = 0f..100f
+            )
+        }
 
         ListItem(
             headlineContent = {
@@ -395,7 +486,8 @@ fun SliderSettingItem(
     title: String,
     value: Float,
     onValueChange: (Float) -> Unit,
-    valueRange: ClosedFloatingPointRange<Float>
+    valueRange: ClosedFloatingPointRange<Float>,
+    suffix: String = ""
 ) {
     Column(modifier = Modifier
         .fillMaxWidth()
@@ -410,7 +502,7 @@ fun SliderSettingItem(
                 style = MaterialTheme.typography.bodyLarge
             )
             Text(
-                text = "${value.toInt()} ms",
+                text = "${value.toInt()} $suffix".trimEnd(),
                 style = MaterialTheme.typography.bodyLarge,
                 modifier = Modifier.padding(start = 8.dp),
                 textAlign = TextAlign.End

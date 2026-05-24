@@ -102,6 +102,19 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
                 is Int -> appConfigPref.edit().putInt(key, value).apply()
                 is Boolean -> appConfigPref.edit().putBoolean(key, value).apply()
             }
+            if (key.startsWith("overlay_")) {
+                val intent = android.content.Intent(getApplication(), com.parallelc.micts.ui.OverlayService::class.java)
+                intent.action = "UPDATE_CONFIG"
+                if (key == AppConfig.KEY_OVERLAY_ENABLED && value == true) {
+                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                        getApplication<Application>().startForegroundService(intent)
+                    } else {
+                        getApplication<Application>().startService(intent)
+                    }
+                } else {
+                    getApplication<Application>().startService(intent)
+                }
+            }
         }
     }
 

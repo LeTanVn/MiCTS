@@ -35,4 +35,14 @@
     <string name="spanish" translatable="false">Español</string>
     <string name="turkish" translatable="false">Türkçe</string>
     <string name="vietnamese" translatable="false">Việt Nam</string>
+    <string name="overlay_settings">Corner Overlay Settings</string>
+    <string name="overlay_enabled">Enable Corner Overlay</string>
+    <string name="overlay_corners">Active Corners</string>
+    <string name="overlay_corners_left">Left</string>
+    <string name="overlay_corners_right">Right</string>
+    <string name="overlay_corners_both">Both</string>
+    <string name="overlay_width">Width</string>
+    <string name="overlay_height">Height</string>
+    <string name="overlay_opacity">Opacity</string>
+    <string name="need_overlay_permission">Please grant \'Draw over other apps\' permission</string>
 </resources>
