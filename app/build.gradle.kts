@@ -1,6 +1,7 @@
+import com.android.build.api.variant.impl.VariantOutputImpl
+
 plugins {
     alias(libs.plugins.android.application)
-    alias(libs.plugins.kotlin.android)
     alias(libs.plugins.lsplugin.jgit)
     alias(libs.plugins.lsplugin.apksign)
     alias(libs.plugins.kotlin.compose)
@@ -23,7 +24,7 @@ android {
 
     defaultConfig {
         minSdk = 28
-        targetSdk = 35
+        targetSdk = 36
         versionCode = commitCount
         versionName = latestTag
 
@@ -40,6 +41,11 @@ android {
         }
     }
 
+    buildFeatures {
+        buildConfig = true
+        resValues = true
+    }
+
     flavorDimensions += "app"
 
     productFlavors {
@@ -54,31 +60,32 @@ android {
             applicationId = "com.parallelc.vistrigger"
             resValue("string", "app_name", "VISTrigger")
             resValue("string", "tile_label", "VIS")
-            resValue("string", "xposed_description", "Trigger Voice Interaction Service on any Android 9–15 device")
+            resValue("string", "xposed_description", "Trigger Voice Interaction Service on any Android 9–16 device")
             buildConfigField("String", "APP_NAME", "\"VISTrigger\"")
         }
     }
 
-    applicationVariants.all {
-        val variant = this
-        variant.outputs
-            .map { it as com.android.build.gradle.internal.api.BaseVariantOutputImpl }
-            .forEach { output ->
-                output.outputFileName = "MiCTS_${variant.versionName}_${variant.versionCode}_${variant.baseName}.apk"
-            }
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_17.toString()
-    }
     buildFeatures {
         compose = true
         buildConfig = true
     }
+}
+
+androidComponents {
+    onVariants { variant ->
+        variant.outputs.forEach { output ->
+            require(output is VariantOutputImpl)
+
+            val vName = output.versionName.get()
+            val vCode = output.versionCode.get()
+
+            output.outputFileName.set("MiCTS_${vName}_${vCode}_${variant.name}.apk")
+        }
+    }
+}
+
+kotlin {
+    jvmToolchain(17)
 }
 
 dependencies {
@@ -89,10 +96,11 @@ dependencies {
     implementation(libs.material3)
     implementation(libs.animation.core.android)
     implementation(libs.animation.android)
+    implementation(libs.androidx.material.icons.core)
+    implementation(libs.androidx.material.icons.extended)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.accompanist.drawablepainter)
-    compileOnly(project(":libxposed-compat"))
     compileOnly(libs.libxposed.api)
     implementation(libs.libxposed.service)
     implementation(libs.hiddenapibypass)
