@@ -127,7 +127,9 @@ class OverlayService : Service() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     isLongPressing = true
-                    handler.postDelayed(longPressRunnable, 500)
+                    val prefs = getSharedPreferences(AppConfig.CONFIG_NAME, Context.MODE_PRIVATE)
+                    val delay = prefs.getLong(AppConfig.KEY_OVERLAY_DELAY, 500L)
+                    handler.postDelayed(longPressRunnable, delay)
                     true
                 }
                 MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {

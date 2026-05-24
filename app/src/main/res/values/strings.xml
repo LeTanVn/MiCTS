@@ -44,5 +44,6 @@
     <string name="overlay_width">Width</string>
     <string name="overlay_height">Height</string>
     <string name="overlay_opacity">Opacity</string>
+    <string name="overlay_trigger_delay">Trigger Delay</string>
     <string name="need_overlay_permission">Please grant \'Draw over other apps\' permission</string>
 </resources>

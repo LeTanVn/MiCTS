@@ -352,6 +352,14 @@ fun SettingsPage(
                 onValueChange = { viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_OPACITY, it.toInt()) },
                 valueRange = 0f..100f
             )
+
+            SliderSettingItem(
+                title = stringResource(R.string.overlay_trigger_delay),
+                value = (appConfig[AppConfig.KEY_OVERLAY_DELAY] as Long).toFloat(),
+                onValueChange = { viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_DELAY, it.toLong()) },
+                valueRange = 0f..2000f,
+                suffix = "ms"
+            )
         }
 
         ListItem(

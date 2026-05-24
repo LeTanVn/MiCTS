@@ -32,6 +32,7 @@ object AppConfig {
     const val KEY_OVERLAY_WIDTH = "overlay_width"
     const val KEY_OVERLAY_HEIGHT = "overlay_height"
     const val KEY_OVERLAY_OPACITY = "overlay_opacity"
+    const val KEY_OVERLAY_DELAY = "overlay_delay"
 
     val DEFAULT_CONFIG = mapOf<String, Any>(
         KEY_LANGUAGE to Language.FollowSystem.ordinal,
@@ -44,5 +45,6 @@ object AppConfig {
         KEY_OVERLAY_WIDTH to 50,
         KEY_OVERLAY_HEIGHT to 50,
         KEY_OVERLAY_OPACITY to 50,
+        KEY_OVERLAY_DELAY to 500L,
     )
 }
