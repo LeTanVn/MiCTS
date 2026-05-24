@@ -21,5 +21,15 @@
     <string name="device">Thiết bị</string>
     <string name="about">Giới thiệu</string>
     <string name="language">Ngôn ngữ</string>
-    <string name="follow_system">Theo hệ thống</string>
+    <string name="overlay_settings">Cài đặt Lớp phủ góc</string>
+    <string name="overlay_enabled">Bật Lớp phủ góc</string>
+    <string name="overlay_corners">Góc Kích hoạt</string>
+    <string name="overlay_corners_left">Trái</string>
+    <string name="overlay_corners_right">Phải</string>
+    <string name="overlay_corners_both">Cả hai</string>
+    <string name="overlay_width">Chiều rộng</string>
+    <string name="overlay_height">Chiều cao</string>
+    <string name="overlay_opacity">Độ mờ</string>
+    <string name="overlay_trigger_delay">Độ trễ kích hoạt</string>
+    <string name="need_overlay_permission">Vui lòng cấp quyền \'Hiển thị trên các ứng dụng khác\'</string>
 </resources>

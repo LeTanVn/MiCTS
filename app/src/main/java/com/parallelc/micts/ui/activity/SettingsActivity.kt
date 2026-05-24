@@ -8,7 +8,9 @@ import android.os.Bundle
 import android.provider.Settings
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.enableEdgeToEdge
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
@@ -278,6 +280,14 @@ fun SettingsPage(
         )
 
         val context = LocalContext.current
+        val overlayPermissionLauncher = rememberLauncherForActivityResult(
+            contract = ActivityResultContracts.StartActivityForResult()
+        ) {
+            if (Settings.canDrawOverlays(context)) {
+                viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_ENABLED, true)
+            }
+        }
+
         ListItem(
             headlineContent = { Text(stringResource(R.string.overlay_enabled)) },
             trailingContent = {
@@ -287,7 +297,7 @@ fun SettingsPage(
                         if (it && !Settings.canDrawOverlays(context)) {
                             android.widget.Toast.makeText(context, R.string.need_overlay_permission, android.widget.Toast.LENGTH_LONG).show()
                             val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:${context.packageName}"))
-                            context.startActivity(intent)
+                            overlayPermissionLauncher.launch(intent)
                         } else {
                             viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_ENABLED, it)
                         }
@@ -357,7 +367,7 @@ fun SettingsPage(
                 title = stringResource(R.string.overlay_trigger_delay),
                 value = (appConfig[AppConfig.KEY_OVERLAY_DELAY] as Long).toFloat(),
                 onValueChange = { viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_DELAY, it.toLong()) },
-                valueRange = 0f..2000f,
+                valueRange = 0f..1000f,
                 suffix = "ms"
             )
         }

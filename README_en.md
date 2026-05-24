@@ -37,6 +37,7 @@ Trigger Circle to Search on any Android 9–16 device
 ### App Settings
 - Default trigger delay: The delay when triggering by launching MiCTS
 - Tile trigger delay: The delay when triggering by the Quick Settings panel tile
+- Corner Gesture Overlay: A customizable, invisible touch zone in the bottom corners of the screen. Long-pressing the corner triggers Circle to Search without needing root or Xposed! Features adjustable size, opacity, active corners (Left/Right/Both), and trigger delay.
 
 ### Module Settings
 Need to activate the module in LSPosed

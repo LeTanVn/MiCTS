@@ -1,82 +1,85 @@
 # MiCTS
 
-[![Stars](https://img.shields.io/github/stars/parallelcc/MiCTS)](https://github.com/parallelcc/MiCTS) [![Downloads](https://img.shields.io/github/downloads/parallelcc/MiCTS/total)](https://github.com/parallelcc/MiCTS/releases) [![Release](https://img.shields.io/github/v/release/parallelcc/MiCTS)](https://github.com/parallelcc/MiCTS/releases/latest) [![DeepWiki](https://img.shields.io/badge/DeepWiki-parallelcc%2FMiCTS-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAyCAYAAAAnWDnqAAAAAXNSR0IArs4c6QAAA05JREFUaEPtmUtyEzEQhtWTQyQLHNak2AB7ZnyXZMEjXMGeK/AIi+QuHrMnbChYY7MIh8g01fJoopFb0uhhEqqcbWTp06/uv1saEDv4O3n3dV60RfP947Mm9/SQc0ICFQgzfc4CYZoTPAswgSJCCUJUnAAoRHOAUOcATwbmVLWdGoH//PB8mnKqScAhsD0kYP3j/Yt5LPQe2KvcXmGvRHcDnpxfL2zOYJ1mFwrryWTz0advv1Ut4CJgf5uhDuDj5eUcAUoahrdY/56ebRWeraTjMt/00Sh3UDtjgHtQNHwcRGOC98BJEAEymycmYcWwOprTgcB6VZ5JK5TAJ+fXGLBm3FDAmn6oPPjR4rKCAoJCal2eAiQp2x0vxTPB3ALO2CRkwmDy5WohzBDwSEFKRwPbknEggCPB/imwrycgxX2NzoMCHhPkDwqYMr9tRcP5qNrMZHkVnOjRMWwLCcr8ohBVb1OMjxLwGCvjTikrsBOiA6fNyCrm8V1rP93iVPpwaE+gO0SsWmPiXB+jikdf6SizrT5qKasx5j8ABbHpFTx+vFXp9EnYQmLx02h1QTTrl6eDqxLnGjporxl3NL3agEvXdT0WmEost648sQOYAeJS9Q7bfUVoMGnjo4AZdUMQku50McDcMWcBPvr0SzbTAFDfvJqwLzgxwATnCgnp4wDl6Aa+Ax283gghmj+vj7feE2KBBRMW3FzOpLOADl0Isb5587h/U4gGvkt5v60Z1VLG8BhYjbzRwyQZemwAd6cCR5/XFWLYZRIMpX39AR0tjaGGiGzLVyhse5C9RKC6ai42ppWPKiBagOvaYk8lO7DajerabOZP46Lby5wKjw1HCRx7p9sVMOWGzb/vA1hwiWc6jm3MvQDTogQkiqIhJV0nBQBTU+3okKCFDy9WwferkHjtxib7t3xIUQtHxnIwtx4mpg26/HfwVNVDb4oI9RHmx5WGelRVlrtiw43zboCLaxv46AZeB3IlTkwouebTr1y2NjSpHz68WNFjHvupy3q8TFn3Hos2IAk4Ju5dCo8B3wP7VPr/FGaKiG+T+v+TQqIrOqMTL1VdWV1DdmcbO8KXBz6esmYWYKPwDL5b5FA1a0hwapHiom0r/cKaoqr+27/XcrS5UwSMbQAAAABJRU5ErkJggg==)](https://deepwiki.com/parallelcc/MiCTS)
+[![Stars](https://img.shields.io/github/stars/parallelcc/MiCTS)](https://github.com/parallelcc/MiCTS) [![Downloads](https://img.shields.io/github/downloads/parallelcc/MiCTS/total)](https://github.com/parallelcc/MiCTS/releases) [![Release](https://img.shields.io/github/v/release/parallelcc/MiCTS)](https://github.com/parallelcc/MiCTS/releases/latest)  [![DeepWiki](https://img.shields.io/badge/DeepWiki-parallelcc%2FMiCTS-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAyCAYAAAAnWDnqAAAAAXNSR0IArs4c6QAAA05JREFUaEPtmUtyEzEQhtWTQyQLHNak2AB7ZnyXZMEjXMGeK/AIi+QuHrMnbChYY7MIh8g01fJoopFb0uhhEqqcbWTp06/uv1saEDv4O3n3dV60RfP947Mm9/SQc0ICFQgzfc4CYZoTPAswgSJCCUJUnAAoRHOAUOcATwbmVLWdGoH//PB8mnKqScAhsD0kYP3j/Yt5LPQe2KvcXmGvRHcDnpxfL2zOYJ1mFwrryWTz0advv1Ut4CJgf5uhDuDj5eUcAUoahrdY/56ebRWeraTjMt/00Sh3UDtjgHtQNHwcRGOC98BJEAEymycmYcWwOprTgcB6VZ5JK5TAJ+fXGLBm3FDAmn6oPPjR4rKCAoJCal2eAiQp2x0vxTPB3ALO2CRkwmDy5WohzBDwSEFKRwPbknEggCPB/imwrycgxX2NzoMCHhPkDwqYMr9tRcP5qNrMZHkVnOjRMWwLCcr8ohBVb1OMjxLwGCvjTikrsBOiA6fNyCrm8V1rP93iVPpwaE+gO0SsWmPiXB+jikdf6SizrT5qKasx5j8ABbHpFTx+vFXp9EnYQmLx02h1QTTrl6eDqxLnGjporxl3NL3agEvXdT0WmEost648sQOYAeJS9Q7bfUVoMGnjo4AZdUMQku50McDcMWcBPvr0SzbTAFDfvJqwLzgxwATnCgnp4wDl6Aa+Ax283gghmj+vj7feE2KBBRMW3FzOpLOADl0Isb5587h/U4gGvkt5v60Z1VLG8BhYjbzRwyQZemwAd6cCR5/XFWLYZRIMpX39AR0tjaGGiGzLVyhse5C9RKC6ai42ppWPKiBagOvaYk8lO7DajerabOZP46Lby5wKjw1HCRx7p9sVMOWGzb/vA1hwiWc6jm3MvQDTogQkiqIhJV0nBQBTU+3okKCFDy9WwferkHjtxib7t3xIUQtHxnIwtx4mpg26/HfwVNVDb4oI9RHmx5WGelRVlrtiw43zboCLaxv46AZeB3IlTkwouebTr1y2NjSpHz68WNFjHvupy3q8TFn3Hos2IAk4Ju5dCo8B3wP7VPr/FGaKiG+T+v+TQqIrOqMTL1VdWV1DdmcbO8KXBz6esmYWYKPwDL5b5FA1a0hwapHiom0r/cKaoqr+27/XcrS5UwSMbQAAAABJRU5ErkJggg==)](https://deepwiki.com/parallelcc/MiCTS)
 
-简体中文&nbsp;&nbsp;|&nbsp;&nbsp;[English](/README_en.md)&nbsp;&nbsp;|&nbsp;&nbsp;[Русский](/README_ru.md)&nbsp;&nbsp;|&nbsp;&nbsp;[Türkçe](/README_tr.md)&nbsp;&nbsp;|&nbsp;&nbsp;[فارسی](/README_fa.md)
+[简体中文](/README.md)&nbsp;&nbsp;|&nbsp;&nbsp;English&nbsp;&nbsp;|&nbsp;&nbsp;[Русский](/README_ru.md)&nbsp;&nbsp;|&nbsp;&nbsp;[Türkçe](/README_tr.md)&nbsp;&nbsp;|&nbsp;&nbsp;[فارسی](/README_fa.md)
 
-在任意Android 9–16设备上触发圈定即搜（Circle to Search）功能
+Trigger Circle to Search on any Android 9–16 device
 
-*本应用只负责触发圈定即搜，无法处理触发成功后可能出现的问题*
+*This app only aims to trigger Circle to Search and cannot handle issues that may occur after triggering successfully*
 
-## 使用方法
+## How to Use
 
-1. 安装最新版[Google](https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox)应用，开启自启动，关闭后台限制，将默认助理应用设置为Google
-
-
-2. 安装并打开MiCTS
-    - 如果幸运的话，在不需要root的情况下，打开MiCTS就会直接触发圈定即搜
-    - 如果没有反应，大概率是因为Google对你的设备禁用了圈定即搜功能（可以通过在Logcat日志中查找`Omni invocation failed: not enabled`确认），在有root的情况下，可以尝试以下方法：
-        - 在LSPosed里激活模块，在[MiCTS设置](#进入设置的方式)里开启`Google机型伪装`后，强制重启Google
-        - 如果还是不行，使用[GMS-Flags](https://github.com/polodarb/GMS-Flags)，将`com.google.android.apps.search.omnient.device`的flag`45631784`设为true
+1. Install the latest version of [Google](https://play.google.com/store/apps/details?id=com.google.android.googlequicksearchbox), enable auto-start, disable background restrictions, and set Google as the default assistant app
 
 
-3. 设置触发方式
-    - 打开MiCTS即可触发，因此可以利用其他软件，比如悬浮球、Xposed Edge、ShortX等，将动作设置为打开MiCTS，实现自定义触发方式
-    - MiCTS提供了一个触发磁贴，可将其添加到快速设置面板里，通过点击磁贴触发
-    - 对于小米设备，MiCTS内置了长按小白条触发和长按Home键触发的功能，可以在MiCTS设置里开启（安装MiCTS后需要激活模块并重启手机才能使用）
-    - 对于Android版本>=13的三星设备，可以从[三星应用商店](https://galaxystore.samsung.com/detail/com.samsung.android.app.routineplus)或[Good Lock](https://galaxystore.samsung.com/detail/com.samsung.android.goodlock)里下载安装“日常程序+”，然后在“设置-模式和日常程序”里，创建日常程序通过按钮操作实现长按电源按钮等方式来启动MiCTS
-
-## 设置
-
-### 进入设置的方式
-- 长按MiCTS应用图标，出现设置选项，点击进入
-- 从LSPosed模块页面，点击MiCTS，再点击设置图标进入
-- 长按快速设置面板的磁贴进入
-
-### 应用设置
-- 默认触发延迟：通过打开MiCTS触发的延迟
-- 磁贴触发延迟：通过点击快速设置面板的磁贴触发的延迟
-
-### 模块设置
-需要在LSPosed里激活模块
-
-- 系统触发服务：触发所使用的系统服务，只会显示当前支持的选项，依赖作用域选择系统框架
-   - VIS：支持Android 9–16，需要将默认助理应用设置为Google，触发时一些设备的屏幕边缘会闪，没有激活模块的情况下只能使用此服务
-   - CSHelper：支持Android 14 QPR3及以上，不需要设置默认助理应用，触发时屏幕边缘不会闪
-   - CSService：支持Android 15及以上，圈定即搜专用的服务，效果同CSHelper
+2. Install and launch MiCTS
+   - If you're lucky, Circle to Search will be triggered directly without root when launching MiCTS
+   - If nothing happened, most likely it's because Google disabled Circle to Search for your device (you can confirm by checking the message `Omni invocation failed: not enabled` in Logcat). Try the following **with root**:
+     - Activate the module in LSPosed, enable `Device spoof for Google` in the [MiCTS settings](#how-to-enter-settings), and force restart Google
+     - If it still doesn't work, then change `com.google.android.apps.search.omnient.device` flag `45631784` to true using [GMS-Flags](https://github.com/polodarb/GMS-Flags)
 
 
-- 长按小白条触发：仅支持小米设备，依赖作用域选择系统桌面
+3. Set up the trigger method
+   - Launching MiCTS will trigger, so you can use other apps like Quick Ball, Xposed Edge, ShortX, etc., set launching MiCTS as the action to customize the trigger method
+   - MiCTS provides a trigger tile, so you can add it to the Quick Settings panel and trigger by clicking it
+   - For Xiaomi devices, MiCTS has built-in support for `Trigger by long press gesture handle` and `Trigger by long press home button`, which can be enabled in the MiCTS settings (need to activate the module and restart the phone after installing MiCTS)
+   - For Samsung devices running Android 13 and above, you can download and install "Routines+" from the [Galaxy Store](https://galaxystore.samsung.com/detail/com.samsung.android.app.routineplus) or [Good Lock](https://galaxystore.samsung.com/detail/com.samsung.android.goodlock). Then, go to Settings > Modes and Routines to create routines that launch MiCTS by Button action such as long-pressing the power button.
+   
+
+## Settings
+
+### How to enter Settings
+- Long press the MiCTS app icon to show the Settings option, then click to enter
+- From the Modules page in LSPosed, click MiCTS, then click the settings icon to enter
+- Long press the Quick Settings panel tile to enter
+
+### App Settings
+- Default trigger delay: The delay when triggering by launching MiCTS
+- Tile trigger delay: The delay when triggering by the Quick Settings panel tile
+- Corner Gesture Overlay: A customizable, invisible touch zone in the bottom corners of the screen. Long-pressing the corner triggers Circle to Search without needing root or Xposed! Features adjustable size, opacity, active corners (Left/Right/Both), and trigger delay.
+
+### Module Settings
+Need to activate the module in LSPosed
+- System trigger service: The system service used by triggering. Only the services supported will be shown. Need to add System Framework to the scope in LSPosed
+   - VIS: Supports on Android 9-16. Need to set Google as the default assistant app and the screen edge will flash when triggering for some devices. If the module is not activated, only this service will be used
+   - CSHelper: Supports on Android 14 QPR3 and above. Don’t need to set Google as the default assistant app and the screen edge will not flash when triggering
+   - CSService: Supports on Android 15 and above. A dedicated service for Circle to Search, same effect as CSHelper
 
 
-- 长按Home键触发：仅支持小米设备，依赖作用域选择系统框架
+- Trigger by long press gesture handle: Only supports on Xiaomi devices. Need to add System Launcher/POCO Launcher to the scope in LSPosed
 
- 
-- Google机型伪装：依赖作用域选择Google
-   - 制造商：修改Google读取到的ro.product.manufacturer
-   - 品牌：修改Google读取到的ro.product.brand
-   - 型号：修改Google读取到的ro.product.model
-   - 设备：修改Google读取到的ro.product.device 
 
-## 常见问题
+- Trigger by long press home button: Only supports on Xiaomi devices. Need to add System Framework to the scope in LSPosed
 
-### 提示“触发失败！”
 
-大概率是没有将Google设为默认助理，检查一下
+- Device spoof for Google: Need to add Google to the scope in LSPosed
+   - Manufacturer: Modify the `ro.product.manufacturer` value that Google reads
+   - Brand: Modify the `ro.product.brand` value that Google reads
+   - Model: Modify the `ro.product.model` value that Google reads
+   - Device: Modify the `ro.product.device` value that Google reads
 
-### 触发出来是Google助理，不是圈定即搜
+## FAQ
 
-Google不是最新版，更新一下
+### Prompt "Trigger failed!"
 
-### 有时无法成功触发，手动打开Google后才会出现刚才圈定即搜的界面
+Most likely because Google is not set as the default assistant, check it
 
-原因应该是墓碑机制导致的，看看手机有没有相关的设置可以把Google加到白名单里，比如电池优化选择无限制等，在模块设置里`系统触发服务`使用`CSHelper`应该没有这个问题
+### Google assistant appears instead of Circle to Search
 
-## 贡献翻译
+Ensure that Google is the latest version
 
-你可以通过[Crowdin](https://crowdin.com/project/micts)贡献翻译
+### Sometimes it doesn't trigger successfully, and the interface appears only after opening Google
 
-如果你需要贡献一个新的语言，请先提交一个issue
+This is likely due to the tombstone mechanism. Check if your device has related settings and add Google to the whitelist, such as selecting "No restrictions" in battery saver
+
+This issue should not occur when the `System trigger service` is set to `CSHelper` in the Module Settings
+
+## Translation Contributing
+
+You can contribute translation through [Crowdin](https://crowdin.com/project/micts)
+
+If you need to contribute a new language, please submit an issue first
 
 ## Star History
 
