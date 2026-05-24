@@ -151,10 +151,10 @@ class OverlayService : Service() {
 
     private fun removeOverlays() {
         leftView?.let {
-            if (it.isAttachedToWindow) windowManager.removeView(it)
+            try { windowManager.removeView(it) } catch (e: Exception) {}
         }
         rightView?.let {
-            if (it.isAttachedToWindow) windowManager.removeView(it)
+            try { windowManager.removeView(it) } catch (e: Exception) {}
         }
         leftView = null
         rightView = null
