@@ -21,6 +21,7 @@
     <string name="device">Thiết bị</string>
     <string name="about">Giới thiệu</string>
     <string name="language">Ngôn ngữ</string>
+    <string name="follow_system">Theo hệ thống</string>
     <string name="overlay_settings">Cài đặt Lớp phủ góc</string>
     <string name="overlay_enabled">Bật Lớp phủ góc</string>
     <string name="overlay_corners">Góc Kích hoạt</string>
