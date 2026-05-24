@@ -280,12 +280,34 @@ fun SettingsPage(
         )
 
         val context = LocalContext.current
+        var showPermissionPopup by remember { mutableStateOf(false) }
         val overlayPermissionLauncher = rememberLauncherForActivityResult(
             contract = ActivityResultContracts.StartActivityForResult()
         ) {
             if (Settings.canDrawOverlays(context)) {
                 viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_ENABLED, true)
             }
+        }
+
+        if (showPermissionPopup) {
+            AlertDialog(
+                onDismissRequest = { showPermissionPopup = false },
+                title = { Text(stringResource(R.string.need_overlay_permission)) },
+                confirmButton = {
+                    TextButton(onClick = {
+                        showPermissionPopup = false
+                        val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:${context.packageName}"))
+                        overlayPermissionLauncher.launch(intent)
+                    }) {
+                        Text(stringResource(android.R.string.ok))
+                    }
+                },
+                dismissButton = {
+                    TextButton(onClick = { showPermissionPopup = false }) {
+                        Text(stringResource(android.R.string.cancel))
+                    }
+                }
+            )
         }
 
         ListItem(
@@ -295,9 +317,7 @@ fun SettingsPage(
                     checked = appConfig[AppConfig.KEY_OVERLAY_ENABLED] as Boolean,
                     onCheckedChange = {
                         if (it && !Settings.canDrawOverlays(context)) {
-                            android.widget.Toast.makeText(context, R.string.need_overlay_permission, android.widget.Toast.LENGTH_LONG).show()
-                            val intent = Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:${context.packageName}"))
-                            overlayPermissionLauncher.launch(intent)
+                            showPermissionPopup = true
                         } else {
                             viewModel.updateAppConfig(AppConfig.KEY_OVERLAY_ENABLED, it)
                         }
