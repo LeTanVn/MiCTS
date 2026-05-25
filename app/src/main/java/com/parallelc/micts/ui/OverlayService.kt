@@ -30,11 +30,11 @@ class OverlayService : Service() {
     private var rightView: View? = null
     private val handler = Handler(Looper.getMainLooper())
     private var isLongPressing = false
-    private var longPressDetected = false
 
     private val longPressRunnable = Runnable {
         if (isLongPressing) {
-            longPressDetected = true
+            triggerCTS()
+            isLongPressing = false
         }
     }
 
@@ -127,24 +127,13 @@ class OverlayService : Service() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     isLongPressing = true
-                    longPressDetected = false
                     val prefs = getSharedPreferences(AppConfig.CONFIG_NAME, Context.MODE_PRIVATE)
                     val delay = prefs.getLong(AppConfig.KEY_OVERLAY_DELAY, 500L)
                     handler.postDelayed(longPressRunnable, delay)
                     true
                 }
-                MotionEvent.ACTION_UP -> {
+                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
                     isLongPressing = false
-                    handler.removeCallbacks(longPressRunnable)
-                    if (longPressDetected) {
-                        longPressDetected = false
-                        triggerCTS()
-                    }
-                    true
-                }
-                MotionEvent.ACTION_CANCEL -> {
-                    isLongPressing = false
-                    longPressDetected = false
                     handler.removeCallbacks(longPressRunnable)
                     true
                 }
@@ -157,9 +146,9 @@ class OverlayService : Service() {
     }
 
     private fun triggerCTS() {
-        val prefs = getSharedPreferences(AppConfig.CONFIG_NAME, Context.MODE_PRIVATE)
-        val vibrate = prefs.getBoolean(AppConfig.KEY_VIBRATE, false)
-        triggerCircleToSearch(1, this, vibrate)
+        val intent = Intent(this, com.parallelc.micts.ui.activity.TriggerActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_NO_ANIMATION)
+        startActivity(intent)
     }
 
     private fun removeOverlays() {
