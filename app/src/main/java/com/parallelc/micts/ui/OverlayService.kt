@@ -6,7 +6,6 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.Service
 import android.content.Context
-import android.content.Intent
 import android.content.res.Configuration
 import android.graphics.Color
 import android.graphics.PixelFormat
@@ -21,7 +20,7 @@ import android.view.WindowManager
 import androidx.core.app.NotificationCompat
 import com.parallelc.micts.R
 import com.parallelc.micts.config.AppConfig
-import com.parallelc.micts.ui.activity.MainActivity
+import com.parallelc.micts.ui.activity.triggerCircleToSearch
 
 class OverlayService : Service() {
 
@@ -30,11 +29,11 @@ class OverlayService : Service() {
     private var rightView: View? = null
     private val handler = Handler(Looper.getMainLooper())
     private var isLongPressing = false
+    private var longPressDetected = false
 
     private val longPressRunnable = Runnable {
         if (isLongPressing) {
-            triggerCTS()
-            isLongPressing = false
+            longPressDetected = true
         }
     }
 
@@ -127,13 +126,24 @@ class OverlayService : Service() {
             when (event.action) {
                 MotionEvent.ACTION_DOWN -> {
                     isLongPressing = true
+                    longPressDetected = false
                     val prefs = getSharedPreferences(AppConfig.CONFIG_NAME, Context.MODE_PRIVATE)
                     val delay = prefs.getLong(AppConfig.KEY_OVERLAY_DELAY, 500L)
                     handler.postDelayed(longPressRunnable, delay)
                     true
                 }
-                MotionEvent.ACTION_UP, MotionEvent.ACTION_CANCEL -> {
+                MotionEvent.ACTION_UP -> {
                     isLongPressing = false
+                    handler.removeCallbacks(longPressRunnable)
+                    if (longPressDetected) {
+                        longPressDetected = false
+                        triggerCTS()
+                    }
+                    true
+                }
+                MotionEvent.ACTION_CANCEL -> {
+                    isLongPressing = false
+                    longPressDetected = false
                     handler.removeCallbacks(longPressRunnable)
                     true
                 }
@@ -146,13 +156,9 @@ class OverlayService : Service() {
     }
 
     private fun triggerCTS() {
-        val intent = Intent(this, MainActivity::class.java)
-        intent.addFlags(
-            Intent.FLAG_ACTIVITY_NEW_TASK or
-            Intent.FLAG_ACTIVITY_MULTIPLE_TASK or
-            Intent.FLAG_ACTIVITY_NO_ANIMATION
-        )
-        startActivity(intent)
+        val prefs = getSharedPreferences(AppConfig.CONFIG_NAME, Context.MODE_PRIVATE)
+        val vibrate = prefs.getBoolean(AppConfig.KEY_VIBRATE, false)
+        triggerCircleToSearch(1, this, vibrate)
     }
 
     private fun removeOverlays() {
