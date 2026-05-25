@@ -81,6 +81,7 @@ class MainActivity : ComponentActivity() {
             Toast.makeText(this, getString(R.string.trigger_failed), Toast.LENGTH_SHORT).show()
         }
         finish()
+        overridePendingTransition(0, 0)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
